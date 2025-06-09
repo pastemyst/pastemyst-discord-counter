@@ -1,0 +1,21 @@
+{
+  "name": "pastemyst-discord-counter",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "@types/bun": "latest",
+    "eslint": "^9.28.0",
+    "eslint-plugin-prettier": "^5.4.1",
+    "eslint-plugin-security": "^3.0.1",
+    "eslint-plugin-unicorn": "^59.0.1",
+    "typescript-eslint": "^8.33.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
