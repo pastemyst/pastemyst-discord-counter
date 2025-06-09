@@ -26,8 +26,7 @@ export default [
     // TypeScript Eslint
     {
         rules: {
-            "@typescript-eslint/explicit-function-return-type": "error",
-            "@typescript-eslint/consistent-type-definitions": ["error", "type"]
+            "@typescript-eslint/explicit-function-return-type": "error"
         }
     },
     // Prettier
