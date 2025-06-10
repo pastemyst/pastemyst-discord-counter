@@ -23,12 +23,6 @@ export default [
             quotes: ["error", "double", { avoidEscape: true }]
         }
     },
-    // TypeScript Eslint
-    {
-        rules: {
-            "@typescript-eslint/explicit-function-return-type": "error"
-        }
-    },
     // Prettier
     {
         plugins: {
