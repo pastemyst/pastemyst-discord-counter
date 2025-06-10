@@ -108,4 +108,4 @@ client.on(Events.GuildCreate, async (guild) => {
 
 client.login(process.env.TOKEN);
 
-setInterval(updatePasteCountChannels, 60 * 1000);
+setInterval(updatePasteCountChannels, 60 * 60 * 1000);
