@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    pull_policy: build
+    env_file:
+      - .env
+    restart: unless-stopped
+    environment:
+      - TOKEN=${TOKEN}
