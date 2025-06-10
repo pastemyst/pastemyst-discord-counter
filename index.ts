@@ -10,6 +10,14 @@ import {
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
+const formatNumber = (num: number): string => {
+    const [intPart, decimalPart] = num.toString().split(".");
+    if (!intPart) return "0";
+    // eslint-disable-next-line security/detect-unsafe-regex
+    const groupedInt = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    return decimalPart ? `${groupedInt}.${decimalPart}` : groupedInt;
+};
+
 const getPasteCount = async (): Promise<number> => {
     type PasteCountResponse = {
         numPastes: number;
@@ -78,7 +86,7 @@ const updatePasteCountChannels = async () => {
         const guild = await client.guilds.fetch(guildId);
 
         const pasteCountChannel = await getOrCreatePasteCountChannel(guild);
-        await pasteCountChannel.edit({ name: `Paste Count: ${pasteCount}` });
+        await pasteCountChannel.edit({ name: `Paste Count: ${formatNumber(pasteCount)}` });
     }
 };
 
@@ -92,7 +100,7 @@ client.on(Events.GuildCreate, async (guild) => {
     try {
         const pasteCountChannel = await getOrCreatePasteCountChannel(guild);
         const pasteCount = await getPasteCount();
-        await pasteCountChannel.edit({ name: `Paste Count: ${pasteCount}` });
+        await pasteCountChannel.edit({ name: `Paste Count: ${formatNumber(pasteCount)}` });
     } catch (error) {
         console.error(`Error updating paste count channel: ${error}`);
     }
@@ -100,4 +108,4 @@ client.on(Events.GuildCreate, async (guild) => {
 
 client.login(process.env.TOKEN);
 
-setInterval(updatePasteCountChannels, 60 * 60 * 1000);
+setInterval(updatePasteCountChannels, 60 * 1000);
