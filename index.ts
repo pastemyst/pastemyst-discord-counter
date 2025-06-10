@@ -63,6 +63,25 @@ const getOrCreatePasteCountChannel = async (guild: Guild): Promise<VoiceChannel>
     return await createPasteCountChannel(guild);
 };
 
+const updatePasteCountChannels = async () => {
+    const guilds = await client.guilds.fetch();
+
+    let pasteCount = 0;
+    try {
+        pasteCount = await getPasteCount();
+    } catch (error) {
+        console.error(`Error fetching paste count: ${error}`);
+        return;
+    }
+
+    for (const [guildId] of guilds) {
+        const guild = await client.guilds.fetch(guildId);
+
+        const pasteCountChannel = await getOrCreatePasteCountChannel(guild);
+        await pasteCountChannel.edit({ name: `Paste Count: ${pasteCount}` });
+    }
+};
+
 client.once(Events.ClientReady, () => {
     console.log(`Logged in as ${client.user?.tag}!`);
 });
@@ -80,3 +99,5 @@ client.on(Events.GuildCreate, async (guild) => {
 });
 
 client.login(process.env.TOKEN);
+
+setInterval(updatePasteCountChannels, 60 * 60 * 1000);
